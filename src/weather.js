@@ -1,29 +1,41 @@
 export const weather = {
-    apiKey: "YOUR_API_KEY",
-    baseUrl: "https://api.openweathermap.org/data/2.5/weather",
-    fetchWeather: function (city) {
-        const url = `${this.baseUrl}?q=${city}&appid=${this.apiKey}&units=metric`;
-        return fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("City not found");
-                }
-                return response.json();
-            })
-            .then(data => this.displayWeather(data))
-            .catch(error => console.error(error));
-    },
-    displayWeather: function (data) {
-        const { name } = data;
-        const { icon, description } = data.weather[0];
-        const { temp, humidity } = data.main;
-        const { speed } = data.wind;
+    apiKey: "ZTQKX2XDDDMPGWAFB6LA2DXZ9",
+    baseUrl: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline",
+    
+    async fetchWeather(location) {
+        try {
+            const response = await fetch(
+                `${this.baseUrl}/${location}?key=${this.apiKey}`
+            );
 
-        console.log(`City: ${name}`);
-        console.log(`Temperature: ${temp}°C`);
-        console.log(`Humidity: ${humidity}%`);
-        console.log(`Wind Speed: ${speed} km/h`);
-        console.log(`Description: ${description}`);
-        console.log(`Icon: http://openweathermap.org/img/wn/${icon}.png`);
+            if (!response.ok) {
+                throw new Error("City not found");
+            }
+
+            const data = await response.json();
+            console.log(data);
+
+            if (data && data.currentConditions) {
+                this.displayWeather(data);
+            } else {
+                console.error("No weather data found:", data); 
+            }
+            
+            return data;
+
+        } catch (error) {
+            console.error("Error fetching weather data:", error);
+        }
+    },
+
+    displayWeather(data) {
+        const city = data.address;
+        const current = data.currentConditions;
+
+        document.querySelector(".city").textContent = city;
+        document.querySelector(".temp").textContent = `${current.temp}°F`;
+        document.querySelector(".description").textContent = current.conditions;
+        document.querySelector(".humidity").textContent = `Humidity: ${current.humidity}%`;
+        document.querySelector(".wind").textContent = `wind: ${current.windspeed} km/h`;
     }
 };
