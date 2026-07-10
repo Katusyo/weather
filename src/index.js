@@ -11,6 +11,8 @@ const search = document.querySelector('#search');
 
 async function init() {
     const data = await weather.fetchWeather("Tokyo");
+
+    console.log(data);
     weather.displayWeather(data);
 }
 
@@ -18,8 +20,11 @@ init();
 
 button.addEventListener('click', async () => {
     const location = search.value;
-    if(location){
-        await weather.fetchWeather(location);
-    }
-})
+    if(!location) return;
+    
+    const data = await weather.fetchWeather(location);
 
+    console.log(data);
+    weather.displayWeather(data);
+
+})

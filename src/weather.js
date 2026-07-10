@@ -1,3 +1,5 @@
+import { weatherIcons } from "./assets/weather-icons";
+
 export const weather = {
     apiKey: "ZTQKX2XDDDMPGWAFB6LA2DXZ9",
     baseUrl: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline",
@@ -13,14 +15,7 @@ export const weather = {
             }
 
             const data = await response.json();
-            console.log(data);
 
-            if (data && data.currentConditions) {
-                this.displayWeather(data);
-            } else {
-                console.error("No weather data found:", data); 
-            }
-            
             return data;
 
         } catch (error) {
@@ -31,7 +26,9 @@ export const weather = {
     displayWeather(data) {
         const city = data.address;
         const current = data.currentConditions;
+        const iconName = data.currentConditions.icon;
 
+        document.querySelector(".weather-icon").src = weatherIcons[iconName];
         document.querySelector(".city").textContent = city;
         document.querySelector(".temp").textContent = `${current.temp}°F`;
         document.querySelector(".description").textContent = current.conditions;
