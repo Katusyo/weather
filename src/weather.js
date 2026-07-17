@@ -1,8 +1,27 @@
 import { weatherIcons } from "./assets/weather-icons";
 
 export const weather = {
+    currentWeather: null,
+    unit: "F",
+
     apiKey: process.env.VISUAL_CROSSING_API_KEY,
     baseUrl: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline",
+
+    convertTemperature(temp) {
+        if (this.unit === "F") {
+            return temp;
+        }
+
+        return ((temp - 32) * 5 / 9).toFixed(1);
+    },
+
+    toggleUnits() {
+        this.unit = this.unit === "F" ? "C" : "F";
+
+        if (this.currentWeather) {
+            this.displayWeather(this.currentWeather);
+        }
+    },
     
     async fetchWeather(location) {
         try {
@@ -23,9 +42,14 @@ export const weather = {
         }
     },
 
+
     displayWeather(data) {
+        this.currentWeather = data;
+
         const {currentConditions, address } = data;
         const {icon, conditions, temp, humidity, windspeed } = currentConditions;
+
+        const displayTemp = this.convertTemperature(temp);
 
         const cityElement = document.querySelector(".city");
         const tempElement = document.querySelector(".temp");
@@ -54,7 +78,7 @@ export const weather = {
         document.body.classList.add(icon);
 
         cityElement.textContent = address;
-        tempElement.textContent = `${temp}°F`;
+        tempElement.textContent = `${displayTemp}°${this.unit}`;
         descriptionElement.textContent = conditions;
         humidityElement.textContent = `Humidity: ${humidity}%`;
         windElement.textContent = `Wind: ${windspeed} km/h`;

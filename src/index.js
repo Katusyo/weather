@@ -18,6 +18,7 @@ header.appendChild(appTitle);
 
 const button = document.querySelector('#new-location');
 const search = document.querySelector('#search');
+const unitButton = document.querySelector('#unit-toggle');
 
 async function init() {
     const spinner = document.querySelector(".spinner");
@@ -58,4 +59,8 @@ button.addEventListener('click', async () => {
         spinner.classList.add("hidden");
         button.disabled = false;
     }
+});
+
+unitButton.addEventListener("click", () => {
+    weather.toggleUnits();
 });
