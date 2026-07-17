@@ -1,7 +1,7 @@
 import { weatherIcons } from "./assets/weather-icons";
 
 export const weather = {
-    apiKey: "ZTQKX2XDDDMPGWAFB6LA2DXZ9",
+    apiKey: process.env.VISUAL_CROSSING_API_KEY,
     baseUrl: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline",
     
     async fetchWeather(location) {
@@ -19,20 +19,45 @@ export const weather = {
             return data;
 
         } catch (error) {
-            console.error("Error fetching weather data:", error);
+            throw error;
         }
     },
 
     displayWeather(data) {
-        const city = data.address;
-        const current = data.currentConditions;
-        const iconName = data.currentConditions.icon;
+        const {currentConditions, address } = data;
+        const {icon, conditions, temp, humidity, windspeed } = currentConditions;
 
-        document.querySelector(".weather-icon").src = weatherIcons[iconName];
-        document.querySelector(".city").textContent = city;
-        document.querySelector(".temp").textContent = `${current.temp}°F`;
-        document.querySelector(".description").textContent = current.conditions;
-        document.querySelector(".humidity").textContent = `Humidity: ${current.humidity}%`;
-        document.querySelector(".wind").textContent = `wind: ${current.windspeed} km/h`;
+        const cityElement = document.querySelector(".city");
+        const tempElement = document.querySelector(".temp");
+        const descriptionElement = document.querySelector(".description");
+        const humidityElement = document.querySelector(".humidity");
+        const windElement = document.querySelector(".wind");
+        const iconElement = document.querySelector(".weather-icon");
+
+        iconElement.src = weatherIcons[icon] ?? weatherIcons["cloudy"];
+        iconElement.alt = conditions;
+
+        document.body.classList.remove(
+            "clear-day",
+            "clear-night",
+            "rain",
+            "snow",
+            "cloudy",
+            "fog",
+            "partly-cloudy-day",
+            "partly-cloudy-night",
+            "wind",
+            "thunderstorms",
+            "thunderstorms-rain"
+        );
+
+        document.body.classList.add(icon);
+
+        cityElement.textContent = address;
+        tempElement.textContent = `${temp}°F`;
+        descriptionElement.textContent = conditions;
+        humidityElement.textContent = `Humidity: ${humidity}%`;
+        windElement.textContent = `Wind: ${windspeed} km/h`;
+        console.log(icon);
     }
 };

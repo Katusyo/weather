@@ -1,3 +1,193 @@
+@font-face {
+    font-family: 'alexbrush';
+    src: url('./alexbrush-regular-webfont.woff2') format('woff2'),
+    url('./alexbrush-regular-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
 body {
-    background-color: lightblue;
+    min-height: 100vh;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            180deg,
+            #87ceeb,
+            #d9f3ff
+        );
+}
+
+body.clear-day {
+    background: linear-gradient(#64b5f6, #bbdefb);
+}
+
+body.rain {
+    background: linear-gradient(#607d8b, #b0bec5);
+}
+
+body.snow {
+    background: linear-gradient(#ffffff, #00a0f0)
+}
+
+body.partly-cloudy-day {
+    background: linear-gradient(#bae0ff, #f1f397);
+}
+
+body.partly-cloudy-night {
+    background: linear-gradient(#0d1b2a, #fffff8)
+}
+
+body.clear-night {
+    background: linear-gradient(#0d1b2a, #415a77);
+}
+
+body.thunderstorms {
+    background: linear-gradient(#f6fa18, #000000);
+}
+
+body.thunderstorms-rain {
+    background: linear-gradient(#f6fa18, #000000);
+}
+
+body.wind {
+    background: linear-gradient(#9ffd83, #ffffff)
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.weather {
+    animation: fade .3s ease;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.weather-icon {
+    width: 200px;
+    height: 200px;
+
+    margin: 1rem auto;
+}
+
+.error-message {
+    color: crimson;
+    font-weight: bold;
+    min-height: 1rem;
+    margin: 10px 0;
+}
+
+.VP-logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 0 auto 1rem;
+}
+
+.app-title {
+    text-align: center;
+    font-size: 3.0rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-family: 'alexbrush', cursive;
+}
+
+.weather-container {
+    width: min(90%, 420px);
+    margin: 2rem auto;
+    padding: 2rem;
+
+    border-radius: 20px;
+
+    background: rgba(105, 105, 105, 0.75);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+
+    text-align:center;
+}
+
+.weather-details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    margin: 2rem 0;
+}
+
+.search input {
+    width: 250px;
+    padding: .8rem 1rem;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+}
+
+.search button {
+    padding: .8rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .2s;
+}
+.search button:hover {
+    transform: translateY(-2px);
+}
+
+.temp {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: .5rem 0;
+}
+
+.city {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: .5rem 0;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+
+    border: 5px solid #ddd;
+    border-top: 5px solid #2196f3;
+
+    border-radius: 50%;
+
+    animation: spin 0.8s linear infinite;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

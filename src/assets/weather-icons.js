@@ -6,7 +6,8 @@ import partlyCloudyDay from "./weather-icons/partly-cloudy-day.svg";
 import partlyCloudyNight from "./weather-icons/partly-cloudy-night.svg";
 import rain from "./weather-icons/rain.svg";
 import snow from "./weather-icons/snow.svg";
-import thunderstorm from "./weather-icons/thunderstorms-rain.svg";
+import thunderstorm from "./weather-icons/thunderstorms.svg";
+import thunderRain from "./weather-icons/thunderstorms-rain.svg";
 import wind from "./weather-icons/umbrella-wind-alt.svg";
 
 export const weatherIcons = {
@@ -18,6 +19,7 @@ export const weatherIcons = {
     "partly-cloudy-night": partlyCloudyNight,
     "rain": rain,
     "snow": snow,
-    "thunder-rain": thunderstorm,
+    "thunderstorms": thunderstorm,
+    "thunderstorms-rain": thunderRain,
     "wind": wind
 };
