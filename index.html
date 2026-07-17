@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+<script defer src="main.js"></script></head>
+<body>
+    <div id="header">
+        <header class="header"></header>
+    </div>
+
+    <div class="search">
+        <input id="search" placeholder="Enter city name">
+        <button id="new-location">Search</button>
+        <button id="unit-toggle">
+            °F / °C
+        </button>
+    </div>
+
+
+    <p class="error-message"></p>
+
+    <div class="spinner hidden"></div>
+
+    <div class="weather-container">
+        <img class="weather-icon" alt="Weather icon">
+        <div class="weather">
+        <h1 class="city"></h1>
+            <h2 class="temp"></h2>
+            <p class="description"></p>
+            <div class="weather-details">
+                <p class="humidity"></p>
+                <p class="wind"></p>
+            </div>
+        </div>
+    </div>
+
+    <p>Powered by Visual Crossing Weather</p>
+
+    <link rel="stylesheet" href="84bb4fc080631c2605f1.css">
+</body>
+</html>
